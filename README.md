@@ -11,7 +11,7 @@ A hybrid identity pipeline that detects, tracks, recognises, and counts unique v
 |---|---|
 | Person detection | YOLOv8 |
 | Face detection & embedding | InsightFace (ArcFace backbone) |
-| Body re-ID embedding | OSNet |
+| Body re-ID embedding | ResNet50 |
 | Multi-object tracker | ByteTrack |
 | Database | SQLite (2 tables) |
 | Frontend | Streamlit |
@@ -47,7 +47,7 @@ A hybrid identity pipeline that detects, tracks, recognises, and counts unique v
                     CLEAR    NOT CLEAR
                        │        │
          ┌─────────────▼──┐  ┌──▼──────────────────┐
-         │  InsightFace    │  │  OSNet body embed    │
+         │  InsightFace    │  │  ResNet body embed    │
          │  face embed     │  │  only                │
          │  + OSNet body   │  └──────────┬───────────┘
          └────────┬────────┘             │
@@ -440,29 +440,22 @@ If a body-only person re-enters with a now-visible face:
 ## Project Structure
 
 ```
-face-tracker/
-├── config.json
-├── tracker.py              ← main pipeline
-├── detector.py             ← YOLOv8 + InsightFace wrapper
-├── bytetrack/
-│   ├── byte_tracker.py     ← ByteTrack implementation
-│   └── kalman_filter.py    ← Kalman filter for bbox prediction
-├── embeddings/
-│   ├── face_embed.py       ← InsightFace ArcFace wrapper
-│   └── body_embed.py       ← OSNet wrapper
-├── identity/
-│   ├── identity_manager.py ← matching, assignment, merging
-│   └── state_machine.py    ← NEW/ACTIVE/LOST/EXITED
+face_tracker/
+├── app.py                    # Streamlit frontend
+├── frame_processor.py        # Per-frame pipeline (YOLO + ByteTrack + embeddings)
+├── identity_manager.py       # Core brain: state machine, matching, logging
+├── config.json               # All tunable parameters
+├── requirements.txt
 ├── database/
-│   └── db.py               ← SQLite face + body tables
-├── logging_system/
-│   └── logger.py           ← image crops, events.log
-├── streamlit_app.py        ← Streamlit UI
-├── tracker.db              ← SQLite database (generated)
-└── logs/
-    ├── entries/
-    ├── exits/
-    └── events.log
+│   └── db_manager.py         # SQLite CRUD (face + body tables)
+├── models/
+│   └── embedders.py          # FaceEmbedder (InsightFace) + BodyEmbedder (ResNet50)
+└── utils/
+    ├── face_quality.py       # Blur, size, angle quality checks
+    ├── similarity.py         # Cosine similarity + fused matching
+    └── logger.py             # Entry/exit image saving + events.log
+```
+
 ```
 
 ---
