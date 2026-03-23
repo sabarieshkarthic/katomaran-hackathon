@@ -4,7 +4,11 @@
 A hybrid identity pipeline that detects, tracks, recognises, and counts unique visitors from video. Uses face embeddings as the primary signal and body embeddings (OSNet) as fallback. Every person gets exactly one entry log and one exit log. Re-entries are detected and do **not** re-increment the unique counter.
 
 ---
-
+---
+## video link
+explanation link https://www.youtube.com/watch?v=z2Bmud41vNE
+demo link  https://www.youtube.com/watch?v=BxDqmJ8RV6Y
+---
 ## Tech Stack
 
 | Layer | Tool |
