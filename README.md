@@ -6,8 +6,8 @@ A hybrid identity pipeline that detects, tracks, recognises, and counts unique v
 ---
 ---
 ## video link
- explanation link https://www.youtube.com/watch?v=z2Bmud41vNE
-  demo link  https://www.youtube.com/watch?v=BxDqmJ8RV6Y
+ # explanation link https://www.youtube.com/watch?v=z2Bmud41vNE
+  # demo link  https://www.youtube.com/watch?v=BxDqmJ8RV6Y
 ---
 ## Tech Stack
 
