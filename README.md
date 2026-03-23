@@ -1,7 +1,7 @@
 # katomaran-hackathon
 # Intelligent Face Tracker with Auto-Registration & Unique Visitor Counting
 
-A hybrid identity pipeline that detects, tracks, recognises, and counts unique visitors from video. Uses face embeddings as the primary signal and body embeddings (OSNet) as fallback. Every person gets exactly one entry log and one exit log. Re-entries are detected and do **not** re-increment the unique counter.
+A hybrid identity pipeline that detects, tracks, recognises, and counts unique visitors from video. Uses face embeddings as the primary signal and body embeddings (ResNet) as fallback. Every person gets exactly one entry log and one exit log. Re-entries are detected and do **not** re-increment the unique counter.
 
 ---
 ---
