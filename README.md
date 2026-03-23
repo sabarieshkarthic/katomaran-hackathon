@@ -49,7 +49,7 @@ A hybrid identity pipeline that detects, tracks, recognises, and counts unique v
          ┌─────────────▼──┐  ┌──▼──────────────────┐
          │  InsightFace    │  │  ResNet body embed    │
          │  face embed     │  │  only                │
-         │  + OSNet body   │  └──────────┬───────────┘
+         │  + ResNet body   │  └──────────┬───────────┘
          └────────┬────────┘             │
                   │                      │
          fused score                body similarity
