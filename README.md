@@ -369,7 +369,7 @@ Phase 2: face becomes CLEAR
 ### Case 3 — Face never clear
 
 ```
-→ OSNet body_emb only, every detection frame
+→ ResNet body_emb only, every detection frame
 → body DB searched each frame
 → new temp_id assigned, entry logged
 → state machine runs full cycle: NEW → ACTIVE → LOST → EXITED
@@ -420,7 +420,7 @@ If a body-only person re-enters with a now-visible face:
       Face quality check → CLEAR or NOT CLEAR
 9.  CLEAR  → InsightFace face_emb + OSNet body_emb
               fused similarity search, threshold 0.7
-    NOT CLEAR → OSNet body_emb only
+    NOT CLEAR → ResNet body_emb only
                 body similarity search, threshold 0.4
 10. Identity Manager:
       match found → existing face_id or temp_id
@@ -470,7 +470,7 @@ face_tracker/
 python>=3.9
 ultralytics          # YOLOv8
 insightface          # ArcFace face embedding
-torchreid            # OSNet body embedding
+torchreid            # ResNet body embedding
 opencv-python
 numpy
 scipy
