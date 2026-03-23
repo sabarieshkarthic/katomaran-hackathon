@@ -170,11 +170,11 @@ Runs **only when face quality is CLEAR**.
 
 ---
 
-### C7 — Body Embedding (OSNet)
+### C7 — Body Embedding (ResNet)
 
 Runs **for all persons**, regardless of face quality.
 
-- Model: OSNet (Omni-Scale Network, person re-ID trained)
+- Model: ResNet (Omni-Scale Network, person re-ID trained)
 - Encodes: clothing colour, texture, body shape
 - Used as sole signal when face is not available; as secondary signal (weight 0.3) when face is clear
 - Less reliable than face embedding — clothing can change between visits
@@ -513,7 +513,7 @@ ByteTrack is integrated directly from source (no separate pip install needed —
 |---|---|
 | YOLOv8 person + face detection | C3 |
 | InsightFace embeddings | C6 |
-| OSNet body fallback | C7 |
+| ResNet body fallback | C7 |
 | Auto-registration of new persons | C5 |
 | Tracking across frames | C10 (ByteTrack) |
 | Frame skip config | C1 + C2 |
