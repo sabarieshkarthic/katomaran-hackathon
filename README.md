@@ -60,7 +60,7 @@ face_tracker/
 |---|---|---|
 | `frame_skip` | 5 | Run YOLO every N frames; DeepSORT Kalman-predicts between |
 | `face_threshold` | 0.7 | Cosine similarity cutoff for face matching (fused face+body) |
-| `body_threshold` | 0.4 | Cosine similarity cutoff for body-only matching |
+| `body_threshold` | 0.6 | Cosine similarity cutoff for body-only matching |
 | `exit_frames` | 30 | Frames a person must be missing before marked EXITED |
 | `min_face_size` | 40 | Minimum face bounding-box pixels for quality pass |
 | `face_fusion_weight` | 0.7 | Weight of face score in fused similarity |
@@ -71,10 +71,10 @@ face_tracker/
 ## Three Processing Cases
 
 ### Case 1 — Face clear from entry
-`YOLOv8` → face detected → quality ✓ → InsightFace embedding (512-dim) + ResNet50 embedding (2048-dim) → fused cosine search in `face` table → match (≥0.7): known person reactivated; no match: new `face_id` inserted → DeepSORT tracks → on exit: `exit_timestamp` written, unique counter updated.
+`YOLOv8` → face detected → quality ✓ → InsightFace embedding (512-dim) + ResNet50 embedding (2048-dim) → fused cosine search in `face` table → match (≥0.7): known person reactivated; no match: new `face_id` inserted → ByteTrack tracks → on exit: `exit_timestamp` written, unique counter updated.
 
 ### Case 2 — Face unclear initially, clears later
-Phase 1: body-only ResNet50 embedding → search `body` table (threshold 0.4) → new `temp_id` in `body` table → DeepSORT tracks + per-frame face quality recheck.  
+Phase 1: body-only ResNet50 embedding → search `body` table (threshold 0.4) → new `temp_id` in `body` table → ByteTrack tracks + per-frame face quality recheck.  
 Phase 2 (face clears): InsightFace embedding → search `face` table → if match: link `body` row to existing `face_id`; if no match: create new `face_id` with **original entry timestamp** from temp period → `body.linked_face_id` updated.
 
 ### Case 3 — Face never clear (backside / always occluded)
@@ -96,12 +96,7 @@ Re-entries are detected by similarity match against IDs that already have `exit_
 
 ---
 
-## State Machine
 
-```
-NEW → ACTIVE → LOST → EXITED
-      ↑   ↓
-      └───┘  (reappears within exit_frames)
 ```
 
 - **NEW**: First appearance. Entry logged once (image + timestamp + DB row).
@@ -136,4 +131,6 @@ logs/
 - **CPU**: Works but slow. Expect ~2–3 fps with frame_skip=5.
 - **GPU (CUDA)**: Replace `onnxruntime` with `onnxruntime-gpu` in requirements.txt and set `ctx_id=0` in InsightFace. Expect 15–25 fps.
 - ResNet50 automatically uses CUDA if available via PyTorch.
-#line “This project is a part of a hackathon run by https://katomaran.com ” 
+
+---
+# “This project is a part of a hackathon run by https://katomaran.com ” 
