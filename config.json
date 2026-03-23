@@ -1,0 +1,13 @@
+{
+  "frame_skip": 5,
+  "face_threshold": 0.55,
+  "body_threshold": 0.25,
+  "exit_frames": 30,
+  "min_face_size": 30,
+  "face_fusion_weight": 0.7,
+  "body_fusion_weight": 0.3,
+  "db_path": "tracker.db",
+  "logs_dir": "logs",
+  "model_confidence": 0.3,
+  "iou_threshold": 0.45
+}

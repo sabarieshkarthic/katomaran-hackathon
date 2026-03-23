@@ -1,0 +1,27 @@
+# Environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Models
+*.pt
+*.onnx
+
+# Databases
+*.db
+
+# Logs
+logs/
+*.log
+
+# Dataset (if it contains actual images that you don't wanna push)
+# dataset/
+
+dataset/
